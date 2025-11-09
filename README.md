@@ -14,17 +14,22 @@
 - 執行環境：  
   - 使用 `llama.cpp` 載入 **本地 Qwen (gguf)**，  
   - 可在 **無外網** 的環境中執行。
+  
+- 文件向量與索引使用 **ChromaDB** 儲存，方便後續增量更新。
 
 ---
 
 ## 2. 功能特色 
 
-- **RAG 問答**  
-  - 文件切分 → 產生 MetaData → 向量化 (Embedding) → 寫入 ChromaDB → 檢索 → Qwen 生成回答。  
+- **RAG 問答流程**  
+  - 文件前處理：將維修手冊 / SOP 依段落切成複數 `chunk`，並加上設備名稱、Alarm Code 等 MetaData。  
+  - 向量化與索引：使用 embedding 模型將 chunk 轉為向量，寫入 **ChromaDB** 以支援相似度搜尋。  
+  - 查詢時會把「檢索到的相關內容 + 使用者問題」一起丟給 Qwen，產生維修建議。
 
 - **Hybrid Retrieval：向量＋關鍵字＋MetaData**  
   - 以向量相似度搭配 **BM25** 關鍵字分數。  
-  - 透過 **MetaData Filter** 限縮設備型號、Alarm Code 等欄位，提升檢索精度。  
+  - 對「同時被向量搜尋、關鍵字搜尋、MetaData Filter 命中的段落」給予較高權重，
+  - 再做一層簡單的重排序，挑出最有代表性的 Top-k chunks。
 
 - **對話記憶**  
   - 紀錄最近多輪對話，支援「延續同一台設備」的追問與補充說明。  
@@ -46,9 +51,7 @@
   - BM25 keyword search
   - Metadata filter (EQ_name , alarm_code)
     ↓
-nodes rerank
-    ↓
-Top-k relevant chunks
+nodes rerank & Top-k relevant chunks
     ↓
 [Qwen 生成回答]
     ↓
