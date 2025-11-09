@@ -34,9 +34,8 @@
 ## 3. 系統架構 (Architecture)
 
 ```text
-使用者問題
-    ↓
-[Query Preprocessing]
+
+[User Query]
     ↓
 [Hybrid Retrieval]
   - Vector search @ ChromaDB
