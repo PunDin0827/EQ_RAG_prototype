@@ -17,10 +17,9 @@
 
 - **RAG 問答**  
   - 文件切分 → 產生 MetaData → 向量化 (Embedding) → 寫入 ChromaDB → 檢索 → Qwen 生成回答。  
-  - Retrieval pipeline: document chunking → metadata → embeddings → ChromaDB → hybrid search → generation.
 
 - **Hybrid Retrieval：向量＋關鍵字＋MetaData**  
-  - 以向量相似度 (cosine similarity) 為主，搭配 **BM25** 關鍵字分數。  
+  - 以向量相似度搭配 **BM25** 關鍵字分數。  
   - 透過 **MetaData Filter** 限縮設備型號、Alarm Code、文件類型等欄位，提升檢索精度。  
 
 - **對話記憶 (Conversation Memory)**  
@@ -43,7 +42,7 @@
 [Hybrid Retrieval]
   - Vector search @ ChromaDB
   - BM25 keyword search
-  - Metadata filter (model, alarm_code, doc_type)
+  - Metadata filter (EQ_name , alarm_code)
     ↓
 Top-k relevant chunks
     ↓
