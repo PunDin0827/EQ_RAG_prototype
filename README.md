@@ -20,16 +20,15 @@
 
 - **Hybrid Retrieval：向量＋關鍵字＋MetaData**  
   - 以向量相似度搭配 **BM25** 關鍵字分數。  
-  - 透過 **MetaData Filter** 限縮設備型號、Alarm Code、文件類型等欄位，提升檢索精度。  
+  - 透過 **MetaData Filter** 限縮設備型號、Alarm Code 等欄位，提升檢索精度。  
 
-- **對話記憶 (Conversation Memory)**  
+- **對話記憶**  
   - 紀錄最近多輪對話，支援「延續同一台設備」的追問與補充說明。  
   - 例：先問「A 機台 Alarm 2030」，下一句問「那如果重開後還是一樣？」依舊能理解上下文。
 
-- **可擴充的知識庫 (Extensible Knowledge Base)**  
-  - 新增 Markdown / PDF / TXT 後，可透過匯入腳本重新向量化並寫入 ChromaDB。  
-  - 支援 incremental update，而不需要重建整個資料庫。
-
+- **可擴充的知識庫**  
+  - 利用 ChromaDB 的增量寫入機制，新增文件時無需重建整個向量資料庫。
+  
 ---
 
 ## 3. 系統架構 (Architecture)
