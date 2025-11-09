@@ -42,6 +42,8 @@
   - BM25 keyword search
   - Metadata filter (EQ_name , alarm_code)
     ↓
+nodes re-rank
+    ↓
 Top-k relevant chunks
     ↓
 [Qwen 生成回答 (LLM)]
