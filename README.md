@@ -56,3 +56,23 @@ nodes rerank & Top-k relevant chunks
 [Qwen 生成回答]
     ↓
 回傳維修步驟 / 建議
+```
+---
+
+## 4. 系統整合：MQTT + Node-RED Dashboard
+
+本專案最終以 **Python + MQTT** 提供服務，並由 **Node-RED Dashboard** 作為前端介面，  
+讓維修工程師可以在瀏覽器中直接輸入設備 / Alarm，取得建議處理步驟。
+
+**Flow 說明 (System flow)：**
+
+```text
+[User @ Web UI (Node-RED Dashboard)]
+            ↓ MQTT (request)
+[Python RAG Service (Qwen + ChromaDB + BM25)]
+            ↓ MQTT (response)
+[Node-RED Dashboard 顯示維修建議]
+
+```
+Node-RED 設備維修問答機器人 Dashboard
+‪<img width="1418" height="542" alt="CNC" src="https://github.com/user-attachments/assets/f322038a-cae3-4429-8a89-e3320d9c36a3" />
